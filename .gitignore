@@ -195,3 +195,5 @@ cython_debug/
 
 # Tranning files
 *.MOV
+
+.idea
