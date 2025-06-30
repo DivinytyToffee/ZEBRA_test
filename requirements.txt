@@ -1,6 +1,0 @@
-ultralytics
-opencv-python
-albumentations
-matplotlib
-pandas
-numpy
