@@ -1,0 +1,15 @@
+train: ./images/train
+val: ./images/val
+test: ./images/test
+nc: 9
+names: [
+  'Tea',
+  'greek_salat',
+  'ribs',
+  'pita',
+  'salat_2',
+  'borsch',
+  'pumpkin_soup',
+  'vodka',
+  'pickled_onions',
+]

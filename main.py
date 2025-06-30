@@ -16,3 +16,4 @@ class_id = {
 }
 
 ROOT_DIR = Path(os.getcwd())
+RUNS_DIR = ROOT_DIR / 'runs'
