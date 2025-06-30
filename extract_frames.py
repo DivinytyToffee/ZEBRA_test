@@ -1,9 +1,9 @@
 from pathlib import Path
 
 import cv2
-import os
 
-ROOT_DIR = Path(os.getcwd())
+from main import ROOT_DIR
+
 FRAMES_DIR = ROOT_DIR / 'frames'
 
 
