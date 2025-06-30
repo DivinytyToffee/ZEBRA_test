@@ -197,3 +197,4 @@ cython_debug/
 *.MOV
 
 .idea
+frame*.*
