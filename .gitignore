@@ -199,3 +199,5 @@ cython_debug/
 .idea
 frame_*.*
 /runs/detect/
+epoch*.pt
+/yolo11*.pt
