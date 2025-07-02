@@ -5,8 +5,6 @@ import cv2
 import albumentations as A
 import logging
 
-from main import ROOT_DIR
-
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s')
 NUM_AUGMENTATIONS = 5
 
@@ -190,13 +188,16 @@ def split_dataset(
                 shutil.copy(label_path, output_dir / 'labels' / split / label_path.name)
 
 
-def augment_data() -> None:
+def augment_data(root_dir: Path) -> None:
     """
     Augments a dataset by applying transformations to images and their corresponding YOLO annotations.
 
     This function processes images and labels from specified directories, performs augmentation,
     and splits the dataset into training and validation sets. It checks the integrity of YOLO
     annotations before proceeding. Augmented data is saved to designated output directories.
+
+    Args:
+        root_dir (Path): Path to the root directory
 
     Raises:
         FileNotFoundError: If input directories or files are missing.
@@ -206,10 +207,10 @@ def augment_data() -> None:
         - Requires 'check_yolo_annotations', 'augment_dataset', and 'split_dataset' functions to be defined.
         - Logging is used to track the process and report issues.
     """
-    image_dir: Path = ROOT_DIR / 'frames'
-    label_dir: Path = ROOT_DIR / 'data' / 'obj_train_data'
-    output_image_dir: Path = ROOT_DIR / 'dataset' / 'augmented' / 'images'
-    output_label_dir: Path = ROOT_DIR / 'dataset' / 'augmented' / 'labels'
+    image_dir: Path = root_dir / 'frames'
+    label_dir: Path = root_dir / 'data' / 'obj_train_data'
+    output_image_dir: Path = root_dir / 'dataset' / 'augmented' / 'images'
+    output_label_dir: Path = root_dir / 'dataset' / 'augmented' / 'labels'
     check: bool = check_yolo_annotations(image_dir, label_dir)
     if check:
         augment_dataset(
@@ -222,13 +223,9 @@ def augment_data() -> None:
         split_dataset(
             output_image_dir,
             output_label_dir,
-            ROOT_DIR / "dataset"
+            root_dir / "dataset"
         )
 
         logging.info('Done!')
     else:
         logging.warning("Annotations uncorrected")
-
-
-if __name__ == '__main__':
-    augment_data()

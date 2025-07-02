@@ -7,8 +7,6 @@ import torch
 import sys
 import time
 
-from main import ROOT_DIR, RUNS_DIR
-
 logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
@@ -46,6 +44,7 @@ def check_existing_run(run_dir: Path) -> tuple[bool, Optional[Path]]:
 def train_yolo_model(
         model_path: str,
         result_folder: str,
+        runs_dir: Path,
         data_yaml: Path,
         epochs: int = 50,
         imgsz: int = 416,
@@ -81,7 +80,7 @@ def train_yolo_model(
         device = 'cpu'
         logging.info("Using CPU for training")
 
-    run_dir = RUNS_DIR / result_folder
+    run_dir = runs_dir / result_folder
     run_dir.mkdir(parents=True, exist_ok=True)
     resume_status, checkpoint = check_existing_run(run_dir)
 
@@ -91,7 +90,7 @@ def train_yolo_model(
         'imgsz': imgsz,
         'batch': batch,
         'device': device,
-        'project': RUNS_DIR.name,
+        'project': runs_dir.name,
         'name': result_folder,
         'exist_ok': True,
         'save': True,
@@ -120,16 +119,3 @@ def train_yolo_model(
 
     logging.info(f"Training completed in {int((end_time - start_time) / 60)} minutes. Results: {results}")
     logging.info(f"Best model saved at: {run_dir / 'weights/best.pt'}")
-
-
-if __name__ == "__main__":
-    train_yolo_model(
-        model_path="yolo11m.pt",
-        result_folder='train_yolo_cuda_2',
-        data_yaml=ROOT_DIR / "dataset" / "data.yaml",
-        epochs=50,
-        imgsz=500,
-        batch=4,
-        resume=True,
-        save_period=5
-    )

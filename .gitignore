@@ -201,3 +201,4 @@ frame_*.*
 /runs/detect/
 epoch*.pt
 /yolo11*.pt
+*.avi
