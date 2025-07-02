@@ -197,5 +197,5 @@ cython_debug/
 *.MOV
 
 .idea
-frame*.*
+frame_*.*
 /runs/detect/
